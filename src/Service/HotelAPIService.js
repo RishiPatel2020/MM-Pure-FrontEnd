@@ -1,5 +1,5 @@
 import axios from "axios";
-const HOTE_BASE_API_URL = "http://localhost:5001/api/hotel/";
+const HOTE_BASE_API_URL = "https://mm-pure-backend-production.up.railway.app/api/hotel/";
 
 class HotelAPIService {
   

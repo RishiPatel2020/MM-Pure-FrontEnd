@@ -1,5 +1,5 @@
 import axios from "axios";
-const ORDER_BASE_REST_API_URL = "http://localhost:5001/api/checkout/";
+const ORDER_BASE_REST_API_URL = "https://mm-pure-backend-production.up.railway.app/api/checkout/";
 
 class OrderAPIService {
   addOrder(orderInfo,setSuccessBody) {
