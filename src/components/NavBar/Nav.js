@@ -32,15 +32,13 @@ function NavBar({
   const [displayAccountInfo, setDisplayAccountInfo] = useState(false);
   // might cause error in PRODUCTION due to paths and hashes "#/"
   const toFAQ = (e) => {
-    // console.log("PATH::: "+window.location.href);
     let path = window.location.href;
     path = path.split("#/")[1];
-    console.log("PATH::: " + path);
-    if (path === undefined || path.length === 0) {
-      ScrollTop.scrollToFAQ();
-    } else {
+    if (path.length !== 0) {
       navigate("/");
       setScrollFAQ(true);
+    } else {
+      ScrollTop.scrollToFAQ();
     }
   };
 
