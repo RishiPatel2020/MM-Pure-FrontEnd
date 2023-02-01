@@ -110,18 +110,25 @@ function LogInPopUP({ style, setLogIn }) {
         .then((response) => {
           localStorage.removeItem("Loading");
           if (response.status === 200) {
-            const userLoggedIn = {
-              id: response.data.id,
-              fname: response.data.First_Name,
-              lname: response.data.Last_Name,
-              emailAddress: response.data.Email,
-              password: response.data.Password,
-              phone:response.data.phone
-            };
-            userSession.addUser(userLoggedIn);
-            setInvalid(false);
-            setLogIn(true);
-            handleClose();
+            if(response.data.length!==0){
+              const userLoggedIn = {
+                id: response.data.id,
+                fname: response.data.First_Name,
+                lname: response.data.Last_Name,
+                emailAddress: response.data.Email,
+                password: response.data.Password,
+                // fix this once it DB is updated!
+                // phone:response.data.phone
+              };
+              userSession.addUser(userLoggedIn);
+              setInvalid(false);
+              setLogIn(true);
+              handleClose();
+            }else{
+              // incorrect password!
+              setInvalid(true);
+            }
+            
           }
         })
         .catch((err) => {
