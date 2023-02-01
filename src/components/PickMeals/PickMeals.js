@@ -275,7 +275,7 @@ const PickMeals = ({
                     <h5>
                       <del className="mx-2">$15.99</del>${price}
                     </h5>
-                    <Link onClick={() => handleDisplay(description, mealName)}>
+                    <Link onClick={() => handleDisplay(description, mealName)} to="">
                       <p className="text-light descriptionAdjustment">
                         Description/Ingridients
                       </p>
