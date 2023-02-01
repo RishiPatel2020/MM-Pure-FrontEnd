@@ -1,5 +1,5 @@
 import ErrorPage from "./components/ErrorPage/ErrorPage";
-import { useEffect, useRef } from "react";
+import { useEffect } from "react";
 import Help from "./components/Help/Help";
 import Home from "./components/Home/Home";
 import About from "./components/About/About";
@@ -19,7 +19,6 @@ import OrderHistory from "./components/OrderHistory/OrderHistory";
 import PrivacyPolicy from "./components/PrivacyPolicy/PrivacyPolicy";
 import TermsAndCondition from "./components/TermsAndCondition/TermsAndCondition";
 import RefundsAndCancellationsPolicy from "./components/RefundsAndCancellationsPolicy/RefundsAndCancellationsPolicy";
-import Payment from "./SharedComponents/PopUp/Payment/Payment";
 function App() {
   useEffect(() => {
     console.log("APP RENDERED...");
