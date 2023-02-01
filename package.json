@@ -1,6 +1,6 @@
 {
   
-  "homepage": "https://RishiPatel2020.github.io/MM-Pure-FrontEnd/",
+  
   
   "name": "front-end",
   
@@ -72,7 +72,7 @@
   "predeploy": "npm run build",
   
     
-  "deploy": "gh-pages -d build",
+  
   
     
   "build": "react-scripts build",
