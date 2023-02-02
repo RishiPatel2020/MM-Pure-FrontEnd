@@ -246,7 +246,38 @@ const PickMeals = ({
     } else {
       // Handle Stripe Payment
       // setPayPopUp(true);
-      document.getElementById("hiddenPaymentButton").click();
+      // document.getElementById("hiddenPaymentButton").click();
+      setTitleEnough("Meals Break Down");
+      setBodyEnough(
+        <>
+          <h5 className="text-center mt-4">{`${
+            "Items Total$" + cartPrice
+          }`}</h5>
+          <h5 className="text-center mt-2">{`${"Delivery $" + 3}`}</h5>
+          <h5 className="text-center mt-2">{`${
+            "Taxes $" +
+            Math.round((cartPrice * 0.06625 + Number.EPSILON) * 100) / 100
+          }`}</h5>
+          <h5 className="text-center mt-2">{`${
+            "Total $" +
+            Math.round(
+              (cartPrice * 0.06625 + cartPrice + 3 + Number.EPSILON) * 100
+            ) /
+              100
+          }`}</h5>
+
+          <div className="h-100 d-flex align-items-center justify-content-center">
+            <Button
+              variant="light"
+              className="text-dark"
+              onClick={()=>document.getElementById("hiddenPaymentButton").click()}
+            >
+              Proceed
+            </Button>
+          </div>
+        </>
+      );
+      setDisplayEnoughPopUp(true);
     }
   };
 
@@ -275,7 +306,10 @@ const PickMeals = ({
                     <h5>
                       <del className="mx-2">$15.99</del>${price}
                     </h5>
-                    <Link onClick={() => handleDisplay(description, mealName)} to="">
+                    <Link
+                      onClick={() => handleDisplay(description, mealName)}
+                      to=""
+                    >
                       <p className="text-light descriptionAdjustment">
                         Description/Ingridients
                       </p>
@@ -338,7 +372,7 @@ const PickMeals = ({
                 className="text-primary checkOutButton"
                 onClick={() => handleCheckOut()}
               >
-                Check Out
+                Proceed
               </Button>
             </div>
           </Row>

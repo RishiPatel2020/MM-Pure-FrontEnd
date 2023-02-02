@@ -249,10 +249,23 @@ const ShoppingCart = ({
                 );
               })}
             </Container>
-            <h3 className="text-center mt-5">{`${
-              "Total Price $" + cartPrice
-            }`}</h3>
-            <div className="h-50 d-flex align-items-center justify-content-center">
+            <h5 className="text-center mt-4">{`${
+              "Items Total$" + cartPrice
+            }`}</h5>
+            <h5 className="text-center mt-2">{`${
+              "Delivery $" + 3
+            }`}</h5>
+            <h5 className="text-center mt-2">{`${
+              "Taxes $" +  Math.round(
+                (cartPrice*0.06625 + Number.EPSILON) * 100
+              ) / 100
+            }`}</h5>
+            <h5 className="text-center mt-2">{`${
+              "Total $" + (Math.round(
+                ((cartPrice*0.06625+cartPrice+3) + Number.EPSILON) * 100
+              ) / 100)
+            }`}</h5>
+            <div className="h-45 d-flex align-items-center justify-content-center">
               <button
                 onClick={() => {
                   setCartPrice(0);

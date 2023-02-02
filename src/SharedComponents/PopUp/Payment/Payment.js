@@ -1,3 +1,4 @@
+import logo from './logo192.png'; 
 import PopUp from "../PopUp";
 import userSession from "../../../Service/userSession";
 import StripeCheckout from "react-stripe-checkout";
@@ -37,7 +38,9 @@ const Payment = ({
       // Sending req to backend to create charge based on card details entered by user..
       StripeBackend.requestToServer(
         stripeToken,
-        cartPrice * 100,
+        (Math.round(
+          (((cartPrice * 0.06625 + cartPrice + 3)) + Number.EPSILON) * 100
+        ) / 100)* 100,
         setStatusBody,
         setStatusPopUp
       ) // Response received from backend and we know if payment succeded or not
@@ -79,7 +82,6 @@ const Payment = ({
                 .then((res) => {
                   setStatusBody("Order saved in DB! Order#: " + res.data);
 
-                  
                   // after 2 seconds close the pop up
                   setTimeout(() => {
                     setStatusPopUp(false);
@@ -121,15 +123,27 @@ const Payment = ({
     stripeToken && makeRequest();
   }, [stripeToken]);
 
+  let multilineString =
+    "This is the first line.\n" +
+    "This is the second line.\n" +
+    "This is the third line.";
+
   return (
     <>
       {/* Regular Stripe pop UP */}
       <StripeCheckout
         name="Mirchi Meals"
+        panelLabel="Proceed"
         shippingAddress
         billingAddress
-        description={`Total: $${cartPrice}`}
-        amount={cartPrice * 100}
+        description={`Total: $${Math.round(
+          (((cartPrice * 0.06625 + cartPrice + 3)) + Number.EPSILON) * 100
+        ) / 100 }`}
+        
+        amount={(Math.round(
+          (((cartPrice * 0.06625 + cartPrice + 3)) + Number.EPSILON) * 100
+        ) / 100)* 100}
+        image= {logo}
         token={onToken}
         stripeKey={STRIPE_KEY}
       >
