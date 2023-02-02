@@ -77,7 +77,9 @@ const Payment = ({
               const objToSend = {
                 Order_date: todaysDate,
                 Shipping_date: delivDate,
-                Total_Price: cartPrice,
+                Total_Price:  (Math.round(
+                  ((cartPrice+3)*0.06625+(cartPrice+3)) * 100
+                ) / 100),
                 email: stripeToken.email,
                 Address: `${stripeToken.card.address_line1} ${stripeToken.card.address_city}, ${stripeToken.card.address_zip}`,
                 Customer_id: userSession.getUser().id,
