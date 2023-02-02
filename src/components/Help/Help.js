@@ -46,7 +46,7 @@ const Help = ({scrollFAQ, setScrollFAQ}) => {
               Promise :)
             </p>
             <p>
-              Please check our <Link className="text-dark mx-1" onClick={(e)=>toFAQ(e)}>FAQ</Link>
+              Please check our <Link className="text-dark mx-1" onClick={(e)=>toFAQ(e)} to ="">FAQ</Link>
               section to see if you can find the answer to your question.{" "}
             </p>
             <p>In the meantime, try out our meals.</p>
