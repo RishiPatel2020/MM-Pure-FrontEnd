@@ -1,5 +1,5 @@
 import axios from "axios";
-const STRIPE_REST_API_URL = "http://localhost:5001/api/checkout/payment";
+const STRIPE_REST_API_URL = "https://mm-pure-backend-production.up.railway.app/api/checkout/payment";
 
 class StripeBackend {
   // sends token id, amount, email, to backend, then backend will create charge on stripe
