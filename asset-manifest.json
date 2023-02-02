@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/MM-Pure-FrontEnd/static/css/main.13c252de.css",
+    "main.css": "/MM-Pure-FrontEnd/static/css/main.a4a9ca1f.css",
     "main.js": "/MM-Pure-FrontEnd/static/js/main.fc2291df.js",
     "static/js/496.b7096a07.chunk.js": "/MM-Pure-FrontEnd/static/js/496.b7096a07.chunk.js",
     "static/media/noHistory.png": "/MM-Pure-FrontEnd/static/media/noHistory.4c3a724200d75503ab2f.png",
@@ -40,12 +40,12 @@
     "static/media/step1.png": "/MM-Pure-FrontEnd/static/media/step1.b07b4c04c2b74e5fb492.png",
     "static/media/mirchiMealsLogo.png": "/MM-Pure-FrontEnd/static/media/mirchiMealsLogo.edea7ed0341520f42b54.png",
     "index.html": "/MM-Pure-FrontEnd/index.html",
-    "main.13c252de.css.map": "/MM-Pure-FrontEnd/static/css/main.13c252de.css.map",
+    "main.a4a9ca1f.css.map": "/MM-Pure-FrontEnd/static/css/main.a4a9ca1f.css.map",
     "main.fc2291df.js.map": "/MM-Pure-FrontEnd/static/js/main.fc2291df.js.map",
     "496.b7096a07.chunk.js.map": "/MM-Pure-FrontEnd/static/js/496.b7096a07.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.13c252de.css",
+    "static/css/main.a4a9ca1f.css",
     "static/js/main.fc2291df.js"
   ]
 }
