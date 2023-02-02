@@ -1,4 +1,4 @@
-import logo from './logo192.png'; 
+import logo from "./logo192.png";
 import PopUp from "../PopUp";
 import userSession from "../../../Service/userSession";
 import StripeCheckout from "react-stripe-checkout";
@@ -32,15 +32,21 @@ const Payment = ({
     console.log("TOKEN::: " + JSON.stringify(token));
   };
 
+  const [amount, setAmount] = useState((Math.round((cartPrice + (cartPrice * 0.06625) + 3)*100)/100));
   useEffect(() => {
+    setAmount((Math.round((cartPrice + (cartPrice * 0.06625) + 3)*100)/100)); 
+  }, [cartPrice]);
+  useEffect(() => {
+    console.log("CART PRICE:: "+cartPrice+ ":: type:: "+ typeof(cartPrice));
+    console.log("AMOUNT:: "+amount+ ":: type:: "+ typeof(amount));
     const makeRequest = () => {
       setStatusTitle("Payment Status");
       // Sending req to backend to create charge based on card details entered by user..
       StripeBackend.requestToServer(
         stripeToken,
         (Math.round(
-          (((cartPrice * 0.06625 + cartPrice + 3)) + Number.EPSILON) * 100
-        ) / 100)* 100,
+          ((cartPrice+3)*0.06625+(cartPrice+3)) * 100
+        ) / 100),
         setStatusBody,
         setStatusPopUp
       ) // Response received from backend and we know if payment succeded or not
@@ -136,14 +142,17 @@ const Payment = ({
         panelLabel="Proceed"
         shippingAddress
         billingAddress
-        description={`Total: $${Math.round(
-          (((cartPrice * 0.06625 + cartPrice + 3)) + Number.EPSILON) * 100
-        ) / 100 }`}
-        
-        amount={(Math.round(
-          (((cartPrice * 0.06625 + cartPrice + 3)) + Number.EPSILON) * 100
-        ) / 100)* 100}
-        image= {logo}
+        description={`Total: $${
+          (Math.round(
+            ((cartPrice+3)*0.06625+(cartPrice+3)) * 100
+          ) / 100)
+        }`}
+        amount={
+          (Math.round(
+            ((cartPrice+3)*0.06625+(cartPrice+3)) * 100
+          ) / 100)*100
+        }
+        image={logo}
         token={onToken}
         stripeKey={STRIPE_KEY}
       >

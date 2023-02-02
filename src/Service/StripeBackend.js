@@ -8,7 +8,7 @@ class StripeBackend {
     setSuccessPopUp(true);
     return axios.post(STRIPE_REST_API_URL, {
       tokenId: token.id,
-      amount: amount,
+      amount: Math.round(amount * 100)
     });
   }
 }

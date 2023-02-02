@@ -256,13 +256,11 @@ const ShoppingCart = ({
               "Delivery $" + 3
             }`}</h5>
             <h5 className="text-center mt-2">{`${
-              "Taxes $" +  Math.round(
-                (cartPrice*0.06625 + Number.EPSILON) * 100
-              ) / 100
+              "Taxes $" +  Math.round(((cartPrice+3)*0.06625)*100)/100
             }`}</h5>
             <h5 className="text-center mt-2">{`${
               "Total $" + (Math.round(
-                ((cartPrice*0.06625+cartPrice+3) + Number.EPSILON) * 100
+                ((cartPrice+3)*0.06625+(cartPrice+3)) * 100
               ) / 100)
             }`}</h5>
             <div className="h-45 d-flex align-items-center justify-content-center">

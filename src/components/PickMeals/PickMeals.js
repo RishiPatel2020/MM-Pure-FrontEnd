@@ -270,7 +270,10 @@ const PickMeals = ({
             <Button
               variant="light"
               className="text-dark"
-              onClick={()=>document.getElementById("hiddenPaymentButton").click()}
+              onClick={() => {
+                setDisplayEnoughPopUp(false);
+                document.getElementById("hiddenPaymentButton").click();
+              }}
             >
               Proceed
             </Button>
