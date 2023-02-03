@@ -24,13 +24,16 @@ function App() {
   useEffect(() => {
     console.log("APP RENDERED!!!");
     const referrer = document.referrer;
-    DataCollectionAPI.add({ url: referrer })
-      .then((response) => {
-        console.log("SUCCESS in sending referral::: "+response.data);
-      })
-      .catch((err) => {
-        console.log("Error in sending referral::: " + err);
-      });
+    if (referrer !== undefined && referrer.length !== 0) {
+      DataCollectionAPI.add({ url: referrer })
+        .then((response) => {
+          console.log("SUCCESS in sending referral::: " + response.data);
+        })
+        .catch((err) => {
+          console.log("Error in sending referral::: " + err);
+        });
+        referrer=""; 
+    }
   }, []);
   // Nav, Home
   const [loggedIn, setLogIn] = useState(userSession.isLoggedIn());
