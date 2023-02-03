@@ -117,8 +117,7 @@ function LogInPopUP({ style, setLogIn }) {
                 lname: response.data.Last_Name,
                 emailAddress: response.data.Email,
                 password: response.data.Password,
-                // fix this once it DB is updated!
-                // phone:response.data.phone
+                phone:response.data.phone
               };
               userSession.addUser(userLoggedIn);
               setInvalid(false);

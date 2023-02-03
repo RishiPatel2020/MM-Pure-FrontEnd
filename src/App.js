@@ -19,9 +19,18 @@ import OrderHistory from "./components/OrderHistory/OrderHistory";
 import PrivacyPolicy from "./components/PrivacyPolicy/PrivacyPolicy";
 import TermsAndCondition from "./components/TermsAndCondition/TermsAndCondition";
 import RefundsAndCancellationsPolicy from "./components/RefundsAndCancellationsPolicy/RefundsAndCancellationsPolicy";
+import DataCollectionAPI from "./Service/DataCollectionAPI";
 function App() {
   useEffect(() => {
-    console.log("APP RENDERED...");
+    console.log("APP RENDERED!!!");
+    const referrer = document.referrer;
+    DataCollectionAPI.add({ url: referrer })
+      .then((response) => {
+        console.log("SUCCESS in sending referral::: "+response.data);
+      })
+      .catch((err) => {
+        console.log("Error in sending referral::: " + err);
+      });
   }, []);
   // Nav, Home
   const [loggedIn, setLogIn] = useState(userSession.isLoggedIn());
@@ -68,7 +77,7 @@ function App() {
           setNumMealsSelected={setNumMealsSelected}
           scrollFAQ={scrollFAQ}
           setScrollFAQ={setScrollFAQ}
-          delivDate ={delivDate}
+          delivDate={delivDate}
         />
 
         {/* to make nav sticked to top */}
