@@ -43,12 +43,43 @@ const Hotel = () => {
   }, []);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [displayReport, setDisplayReport] = useState(false);
-  const handleCloseReport = () => setDisplayReport(false);
+  const [status, setStatus] = useState("Submit");
+  const handleCloseReport = () => {
+    setReport("");
+    setReportLabel(<span>Report</span>);
+    setStatus("Submit");
+    setDisplayReport(false);
+  };
+
+  const [report, setReport] = useState("");
+  const [reportLabel, setReportLabel] = useState(<span>Report</span>);
   /**
    * API call to send notifcation to admin
    */
   const handleSubmitReport = () => {
-    handleCloseReport();
+    console.log("clicked:  "+report);
+    if (report.length === 0) {
+      setReportLabel(<span style={{ color: "red" }}>Report **</span>);
+    } else {
+      setStatus("Loading...");
+      HotelAPIService.report({ msg: report })
+        .then((response) => {
+          console.log(response);
+          setStatus("Submit"); 
+          setReportLabel(
+            <span style={{ color: "green" }}>
+              Admin was notified successfully
+            </span>
+          );
+          setTimeout(() => {
+            handleCloseReport();
+          }, 3000);
+        })
+        .catch((err) => {
+          setStatus("Submit"); 
+          setReportLabel(<span style={{color:"red"}}>Could'nt notify Admin, please call them</span>);
+        });
+    }
   };
 
   // do validation of pin after than let user in
@@ -57,12 +88,16 @@ const Hotel = () => {
       setIsLoggedIn(true);
       setPinLabel(
         <label for="exampleInputEmail1" className="mb-2">
-          PIN 
+          PIN
         </label>
       );
     } else {
       setPinLabel(
-        <label for="exampleInputEmail1" className="mb-2" style={{color:"red"}}>
+        <label
+          for="exampleInputEmail1"
+          className="mb-2"
+          style={{ color: "red" }}
+        >
           Incorrect PIN
         </label>
       );
@@ -299,14 +334,14 @@ const Hotel = () => {
             <p className="lead">Describe report in detail</p>
             <form>
               <div className="mb-3">
-                <label>Report</label>
+                <label>{reportLabel}</label>
                 {/* <input
                   type="text"
                   className="form-control"
                   id="first-name"
                   
                 /> */}
-                <textarea className="form-control"></textarea>
+                <textarea className="form-control" onChange={(e)=>setReport(e.target.value)}></textarea>
               </div>
             </form>
           </Modal.Body>
@@ -318,7 +353,9 @@ const Hotel = () => {
               variant="light"
               onClick={handleSubmitReport}
             >
-              <span>Submit</span>
+              <span>
+                {status}
+              </span>
             </Button>
             <Button
               className="text-center"
