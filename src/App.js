@@ -23,7 +23,8 @@ import DataCollectionAPI from "./Service/DataCollectionAPI";
 function App() {
   useEffect(() => {
     console.log("APP RENDERED!!!");
-    const referrer = document.referrer;
+    let referrer = document.referrer;
+    console.log("REFERED BY: "+referrer);
     if (referrer !== undefined && referrer.length !== 0) {
       DataCollectionAPI.add({ url: referrer })
         .then((response) => {

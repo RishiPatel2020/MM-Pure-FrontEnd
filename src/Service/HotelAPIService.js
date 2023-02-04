@@ -9,6 +9,9 @@ class HotelAPIService {
   getOrderTables(date){
     return axios.post(`${HOTE_BASE_API_URL}ordersTable`, date);
   }
+  report(msg){
+    return axios.post(`${HOTE_BASE_API_URL}report`, msg);
+  }
 
 }
 
