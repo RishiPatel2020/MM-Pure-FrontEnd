@@ -7,4 +7,3 @@ build/
 node_modules/.cache/
 
 # ignore node_modules folder
-node_modules/
