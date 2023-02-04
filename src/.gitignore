@@ -1,0 +1,10 @@
+# .gitignore
+
+# ignore build folder
+build/
+
+# ignore cache folder in node_modules
+node_modules/.cache/
+
+# ignore node_modules folder
+node_modules/
