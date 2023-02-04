@@ -191,7 +191,7 @@ function SignUpPopUp({ style, setLogIn }) {
         lastName: lastName,
         email: email,
         password: userPassword,
-        phone:phone
+        phone: phone,
       };
       UserApiService.registerUser(toBeAdded)
         .then((response) => {
@@ -204,7 +204,7 @@ function SignUpPopUp({ style, setLogIn }) {
               lname: lastName,
               emailAddress: email,
               password: userPassword,
-              phone:phone
+              phone: phone,
             };
             userSession.addUser(userLoggedIn);
             handleClose();
@@ -215,6 +215,13 @@ function SignUpPopUp({ style, setLogIn }) {
         })
         .catch((err) => {
           localStorage.removeItem("Loading");
+          setEmailLabel(
+            <label htmlFor="email" className="col-form-label">
+              <span style={{ color: "red" }}>
+                Email already registered, use different Email <span style={{ color: "red" }}></span>
+              </span>
+            </label>
+          );
           console.log("ERROR::: " + err);
         });
       // IF email valid => following things

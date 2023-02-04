@@ -29,6 +29,11 @@ class UserApiServer {
     return axios.put(`${USER_BASE_REST_API_URL}update`,user);
   }
 
+  forgotPassword(email){
+    localStorage.setItem("localLoading",6); 
+    return axios.post(`${USER_BASE_REST_API_URL}forgotPassword`,{email:email});
+  }
+
   // delete
     // deleteEmployee(id) {
     //   return axios.delete(USER_BASE_REST_API_URL + "/" + id);

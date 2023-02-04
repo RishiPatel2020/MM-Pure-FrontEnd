@@ -1,8 +1,9 @@
+import ForgotPassword from "./ForgotPassword";
+import { Link } from "react-router-dom";
 import UserApiService from "../../../Service/UserApiService";
 /***
  * Will call backend API to authenticate user based on username and password
  */
-
 import React from "react";
 import { Modal } from "react-bootstrap";
 import { Button } from "react-bootstrap";
@@ -10,6 +11,7 @@ import { useState } from "react";
 import userSession from "../../../Service/userSession";
 
 function LogInPopUP({ style, setLogIn }) {
+  const [showForgotPassword, setShowForgotPassword] = useState(false);
   // display pop up
   const [display, setDisplay] = useState(false);
 
@@ -110,24 +112,23 @@ function LogInPopUP({ style, setLogIn }) {
         .then((response) => {
           localStorage.removeItem("Loading");
           if (response.status === 200) {
-            if(response.data.length!==0){
+            if (response.data.length !== 0) {
               const userLoggedIn = {
                 id: response.data.id,
                 fname: response.data.First_Name,
                 lname: response.data.Last_Name,
                 emailAddress: response.data.Email,
                 password: response.data.Password,
-                phone:response.data.phone
+                phone: response.data.phone,
               };
               userSession.addUser(userLoggedIn);
               setInvalid(false);
               setLogIn(true);
               handleClose();
-            }else{
+            } else {
               // incorrect password!
               setInvalid(true);
             }
-            
           }
         })
         .catch((err) => {
@@ -139,38 +140,6 @@ function LogInPopUP({ style, setLogIn }) {
       // IF username && password valid => following things
 
       // setLogIn(true);
-
-      // need to receive more info from backend like name and order history
-      const orderhistory = [
-        {
-          size: 4,
-          meals: [
-            "Punjabi Meal",
-            "Gujarati Meal",
-            "Bangladeshi Meal",
-            "Gujarati Meal",
-          ],
-          price: 96,
-          orderDate: "12/11/2022",
-          deliveryDate: "Sunday",
-        },
-
-        {
-          size: 6,
-          meals: [
-            "Punjabi Meal",
-            "Gujarati Meal",
-            "Bangladeshi Meal",
-            "Gujarati Meal",
-            "Gujarati Meal",
-            "Bangladeshi Meal",
-          ],
-          price: 96,
-          orderDate: "12/12/2022",
-          deliveryDate: "Friday",
-        },
-      ];
-
       /**
        * Stuff is commented out because version 1.0 of backend API is being integrated
        */
@@ -242,6 +211,16 @@ function LogInPopUP({ style, setLogIn }) {
         </Modal.Body>
 
         <Modal.Footer>
+          <Link
+            to=""
+            style={{ color: "blue", margitRight: "1px" }}
+            onClick={() => {
+              setDisplay(false);
+              setShowForgotPassword(true);
+            }}
+          >
+            Forgot Password
+          </Link>
           <Button variant={style.buttonColor} onClick={handleClose}>
             <span style={{ color: style.textColor }}>Close</span>
           </Button>
@@ -255,6 +234,11 @@ function LogInPopUP({ style, setLogIn }) {
           </Button>
         </Modal.Footer>
       </Modal>
+      <ForgotPassword
+        showForgotPassword={showForgotPassword}
+        setShowForgotPassword={setShowForgotPassword}
+        setDisplay = {setDisplay}
+      />
     </>
   );
 }
