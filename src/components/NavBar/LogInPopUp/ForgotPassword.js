@@ -17,6 +17,8 @@ const ForgotPassword = ({
     </label>
   );
 
+  const [status, setStatus] = useState("Get Password");
+
   const handleClose = () => {
     setTitle(<span>Forgot Password</span>);
     setEmailForgotPassword("");
@@ -25,7 +27,7 @@ const ForgotPassword = ({
         Enter email<span style={{ color: "red" }}>*</span>
       </label>
     );
-    localStorage.removeItem("localLoading");
+    setStatus("Get Password");
     setShowForgotPassword(false);
     setDisplay(true);
   };
@@ -41,10 +43,16 @@ const ForgotPassword = ({
         </label>
       );
     } else {
+      setStatus("Loading...");
+      setEmailLabel(
+        <label htmlFor="emailForgotPassword" className="col-form-label">
+          Enter email<span style={{ color: "red" }}>*</span>
+        </label>
+      );
       // API CALL
       UserApiService.forgotPassword(emailForgotPassword)
         .then((response) => {
-          localStorage.removeItem("localLoading");
+          setStatus("Get Password");
           const data = response.data;
           if (data === "notFound") {
             setTitle(
@@ -108,12 +116,9 @@ const ForgotPassword = ({
 
       <Modal.Footer>
         <Button variant="secondary" onClick={getCredentials}>
-          {localStorage.getItem("localLoading") ? (
-            <span className="text-primary">Loading...</span>
-          ) : (
-            <span className="text-primary">Get Password</span>
-          )}
+          <span className="text-primary">{status}</span>
         </Button>
+
         <Button variant="secondary" onClick={handleClose}>
           <span className="text-primary">Close</span>
         </Button>

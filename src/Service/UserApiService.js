@@ -30,7 +30,6 @@ class UserApiServer {
   }
 
   forgotPassword(email){
-    localStorage.setItem("localLoading",6); 
     return axios.post(`${USER_BASE_REST_API_URL}forgotPassword`,{email:email});
   }
 
