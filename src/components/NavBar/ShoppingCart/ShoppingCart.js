@@ -14,6 +14,8 @@ import PopUp from "../../../SharedComponents/PopUp/PopUp";
 import StripeBackend from "../../../Service/StripeBackend";
 import OrderAPIService from "../../../Service/OrderAPIService";
 import Payment from "../../../SharedComponents/PopUp/Payment/Payment";
+import DataCollectionAPI from "../../../Service/DataCollectionAPI";
+import { isNamedExportBindings } from "typescript";
 const ShoppingCart = ({
   cart,
   setCart,
@@ -26,6 +28,7 @@ const ShoppingCart = ({
   numMealsSelected,
   setNumMealsSelected,
   delivDate,
+  zipCode,
 }) => {
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -98,6 +101,17 @@ const ShoppingCart = ({
   const [titleEnough, setTitleEnough] = useState("");
   const [bodyEnough, setBodyEnough] = useState("");
 
+  const getMealsData = ()=>{
+    let tempDict = {};
+   mealNumbers.map((freq,index)=>{
+    if(freq>0){
+      tempDict[MealData.getMeals()[index].mealName] = freq;
+    }
+   });
+
+    return tempDict;
+  };
+
   /**
    * send Data to DB for DA purporses
    * STRIP INTEGRATION
@@ -114,8 +128,17 @@ const ShoppingCart = ({
       setBodyEnough(<p>Select at least {numMeals[0]} meals</p>);
       setDisplayEnoughPopUp(true);
     } else if (!userSession.isLoggedIn()) {
+      const mealsInfo = {
+        zipcode:zipCode,
+        planSize:numMeals,
+        mealsAndFreqs:getMealsData()
+      };
+      DataCollectionAPI.storeUnprocessedMeals(mealsInfo).then(()=>{
+        console.log("Successful");
+      }).catch((err)=>{
+        console.log("Err:: "+err);
+      });
       setTitle("LogIn/SignUp");
-
       setBody(
         <div
           className="container align-items-center d-flex justify-content-center"
@@ -352,7 +375,7 @@ const ShoppingCart = ({
       <PopUp
         displayPopUp={displayEnoughPopUp}
         setDisplayPopUp={setDisplayEnoughPopUp}
-        title={titleEnough}
+        title={titleEnough}P
         body={bodyEnough}
       />
 

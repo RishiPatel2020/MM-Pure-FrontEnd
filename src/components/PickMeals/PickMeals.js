@@ -3,6 +3,7 @@
  *  Scaling: might need API call to search meal info based on given zip code
  */
 
+import DataCollectionAPI from "../../Service/DataCollectionAPI";
 import Payment from "../../SharedComponents/PopUp/Payment/Payment";
 import StripeBackend from "../../Service/StripeBackend";
 import StripeCheckout from "react-stripe-checkout";
@@ -196,6 +197,17 @@ const PickMeals = ({
   const [successTitle, setSuccessTitle] = useState("");
   const [successBody, setSuccessBody] = useState("");
 
+  const getMealsData = () => {
+    let tempDict = {};
+    mealNumbers.map((freq, index) => {
+      if (freq > 0) {
+        tempDict[MealData.getMeals()[index].mealName] = freq;
+      }
+    });
+
+    return tempDict;
+  };
+
   /**
    * send Data to DB for DA purporses
    * STRIP INTEGRATION
@@ -210,8 +222,19 @@ const PickMeals = ({
       setBodyEnough(<p>Select at least {numMeals[0]} meals</p>);
       setDisplayEnoughPopUp(true);
     } else if (!userSession.isLoggedIn()) {
+      const mealsInfo = {
+        zipcode: zipCode,
+        planSize: numMeals,
+        mealsAndFreqs: getMealsData(),
+      };
+      DataCollectionAPI.storeUnprocessedMeals(mealsInfo)
+        .then(() => {
+          console.log("Successful");
+        })
+        .catch((err) => {
+          console.log("Err:: " + err);
+        });
       setTitle("LogIn/SignUp");
-
       setBody(
         <div
           className="container align-items-center d-flex justify-content-center"
@@ -251,19 +274,17 @@ const PickMeals = ({
       setBodyEnough(
         <>
           <h5 className="text-center mt-4">{`${
-              "Items Total$" + cartPrice
-            }`}</h5>
-            <h5 className="text-center mt-2">{`${
-              "Delivery $" + 3
-            }`}</h5>
-            <h5 className="text-center mt-2">{`${
-              "Taxes $" +  Math.round(((cartPrice+3)*0.06625)*100)/100
-            }`}</h5>
-            <h5 className="text-center mt-2">{`${
-              "Total $" + (Math.round(
-                ((cartPrice+3)*0.06625+(cartPrice+3)) * 100
-              ) / 100)
-            }`}</h5>
+            "Items Total$" + cartPrice
+          }`}</h5>
+          <h5 className="text-center mt-2">{`${"Delivery $" + 3}`}</h5>
+          <h5 className="text-center mt-2">{`${
+            "Taxes $" + Math.round((cartPrice + 3) * 0.06625 * 100) / 100
+          }`}</h5>
+          <h5 className="text-center mt-2">{`${
+            "Total $" +
+            Math.round(((cartPrice + 3) * 0.06625 + (cartPrice + 3)) * 100) /
+              100
+          }`}</h5>
 
           <div className="h-100 d-flex align-items-center justify-content-center">
             <Button
